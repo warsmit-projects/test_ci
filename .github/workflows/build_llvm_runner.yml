@@ -12,9 +12,9 @@ on:
       - 'images/llvm_runner'
       - '.github/workflows/build_llvm_runner.yml'
 
-defaults:
-  run:
-    working-directory: ./images/llvm_runner
+# defaults:
+#   run:
+#     working-directory: ./images/llvm_runner
 
 jobs:
   push_to_registry:
@@ -23,8 +23,6 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-
-      - run: pwd
       
       - name: Log in to Docker Hub
         uses: docker/login-action@v1.10.0
@@ -37,7 +35,7 @@ jobs:
         uses: docker/metadata-action@v3.5.0
         with:
           images: warsmit/test_ci
-          tags: test
+          # tags: test
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2.7.0
@@ -46,3 +44,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          file: ./images/llvm_runner/Dockerfile
