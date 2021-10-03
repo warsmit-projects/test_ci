@@ -25,26 +25,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      
-      # - name: Extract metadata (tags, labels) for Docker
-      #   id: meta
-      #   uses: docker/metadata-action@v3.5.0
-      #   with:
-      #     images: warsmit/test_ci
-      #     tags: test
-
-      # - name: Build and push Docker image
-      #   uses: docker/build-push-action@v2.7.0
-      #   with:
-      #     push: true
-      #     tags: ${{ steps.meta.outputs.tags }}
-      #     labels: ${{ steps.meta.outputs.labels }}
-      #     file: images/llvm_runner/Dockerfile
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2.7.0
         with:
           push: true
-          tags: warsmit/test_ci:test
+          tags: "${{ secrets.DOCKER_USERNAME }}/test_ci:test"
           file: images/llvm_runner/Dockerfile
-          
+          no-cache: true

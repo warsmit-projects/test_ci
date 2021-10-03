@@ -5,7 +5,7 @@ WORKDIR /usr/src/test
 # Install required dependencies
 RUN apt-get update && \
     apt-get install --yes --no-install-recommends \
-        bash git openssl curl libssl-dev sudo \
+        sudo bash git openssl curl libssl-dev ssh-client \
         cmake gcc g++ \
         libpq-dev pkg-config \
         software-properties-common jq \
