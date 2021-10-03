@@ -12,9 +12,9 @@ on:
       - 'images/llvm_runner'
       - '.github/workflows/build_llvm_runner.yml'
 
-# defaults:
-#   run:
-#     working-directory: ./images/llvm_runner
+defaults:
+  run:
+    working-directory: ./images/llvm_runner
 
 jobs:
   push_to_registry:
@@ -44,5 +44,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          file: images/llvm_runner/Dockerfile
+          # file: images/llvm_runner/Dockerfile
 #test
