@@ -12,9 +12,9 @@ on:
       - 'images/llvm_runner'
       - '.github/workflows/build_llvm_runner.yml'
 
-defaults:
-  run:
-    working-directory: ./images/llvm_runner
+# defaults:
+#   run:
+#     working-directory: ./images/llvm_runner
 
 jobs:
   push_to_registry:
@@ -40,7 +40,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2.7.0
         with:
-          context: .
+          context: images/llvm_runner/
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
