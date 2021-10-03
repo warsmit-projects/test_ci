@@ -37,6 +37,8 @@ jobs:
           images: warsmit/test_ci
           tags: test
 
+      - run: ls -l images/llvm_runner/
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v2.7.0
         with:
