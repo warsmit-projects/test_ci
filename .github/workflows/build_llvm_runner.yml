@@ -1,4 +1,4 @@
-name: Publish LLVM_runner docker image
+name: Build llvm_runner docker image
 
 on:
   push: 
@@ -14,9 +14,10 @@ on:
 
 jobs:
   push_to_registry:
-    name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
@@ -27,16 +28,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Push master branch. Build and push docker image.
-        if: github.event_name == 'push'
-        uses: docker/build-push-action@v2.7.0
-        with:
-          push: true
-          tags: "${{ secrets.DOCKER_USERNAME }}/test_ci:test"
-          file: images/llvm_runner/Dockerfile
-          no-cache: true
-
-      - name: Pull request. Testing docker image build.
+      - name: Testing docker image build.
         if: github.event_name == 'pull_request'
         uses: docker/build-push-action@v2.7.0
         with:
@@ -44,4 +36,12 @@ jobs:
           tags: "test/test:test"
           file: images/llvm_runner/Dockerfile
           no-cache: true
-#test
+
+      - name: Build and push docker image.
+        if: github.event_name == 'push'
+        uses: docker/build-push-action@v2.7.0
+        with:
+          push: true
+          tags: "${{ secrets.DOCKER_USERNAME }}/test_ci:test"
+          file: images/llvm_runner/Dockerfile
+          no-cache: true
