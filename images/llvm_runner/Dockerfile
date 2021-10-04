@@ -29,4 +29,4 @@ RUN curl -SL ${CLANG_ARCHIVE_LINK} | tar -xJC . && \
 ENV PATH=/usr/local/clang_13/bin:$PATH \
     D_LIBRARY_PATH=/usr/local/clang_13/lib:$LD_LIBRARY_PATH’
 
-CMD [ “/bin/bash” ]
+CMD [ “tail -f /dev/null” ]
